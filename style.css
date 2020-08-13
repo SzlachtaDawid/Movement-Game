@@ -1,0 +1,322 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif;
+}
+
+body {
+    background-color: rgb(66, 45, 126);
+}
+
+.welcome {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    z-index: 2;
+    text-align: center;
+}
+
+.welcome h1 {
+    font-size: 70px;
+    padding: 50px;
+}
+
+.welcome p {
+    font-size: 60px;
+}
+
+.welcome input {
+    font-size: 40px;
+}
+
+.welcome button {
+    display: block;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 70px;
+    margin-top: 50px;
+}
+
+.container {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 150px;
+    border: 2px solid black;
+}
+
+i {
+    font-size: 70px;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+i.fa-chevron-left {
+    position: absolute;
+    top: 60%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    padding: 5px 15px;
+}
+
+i.fa-chevron-up {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+i.fa-chevron-right {
+    position: absolute;
+    top: 60%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    padding: 5px 15px;
+}
+
+.active {
+    color: greenyellow;
+    border: 2px solid greenyellow;
+}
+
+.activemiss {
+    color: red;
+    border: 2px solid red;
+}
+
+.arrow {
+    font-size: 100px;
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translateX(-50%);
+}
+
+.arrowEffect {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    top: 25%;
+    transform: translateX(-50%);
+}
+
+.start {
+    font-size: 70px;
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+    background-color: gray;
+}
+
+.start:hover {
+    background-color: green;
+}
+
+.hit {
+
+    font-size: 50px;
+    position: absolute;
+    left: 7%;
+    top: 15%;
+    transform: rotate(340deg);
+}
+
+.miss {
+    font-size: 50px;
+    position: absolute;
+    right: 7%;
+    top: 15%;
+    transform: rotate(20deg);
+}
+
+.time {
+    font-size: 50px;
+    position: absolute;
+    right: 10%;
+    bottom: 10%;
+}
+
+.menu i {
+    font-size: 100px;
+}
+
+
+.theend {
+    position: fixed;
+    left: 5%;
+    right: 5%;
+    top: 40%;
+    bottom: 5%;
+    background-color: rgb(90, 91, 161);
+    display: none;
+    transition: 1s;
+}
+
+.score {
+    font-size: 100px;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: greenyellow;
+}
+
+.close {
+    font-size: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+}
+
+.lvl {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 30px;
+    letter-spacing: 5px;
+}
+
+.lvl div {
+    border: 2px solid black;
+    padding: 0 10px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+
+.easy {
+    background-color: green;
+}
+
+.easy:hover {
+    border: 2px solid white;
+}
+
+.medium {
+    background-color: yellow;
+}
+
+.medium:hover {
+    border: 2px solid white;
+}
+
+.hard {
+    background-color: red;
+}
+
+.hard:hover {
+    border: 2px solid white;
+}
+
+.ranking {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    border: 1px solid black;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+i.fa-trophy {
+    font-size: 25px;
+    color: goldenrod;
+}
+
+.rankingArrow {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: grey;
+}
+
+.rankingArrow h1 {
+    text-align: center;
+    font-size: 100px;
+}
+
+.flex {
+    font-size: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.rankingArrow button {
+    font-size: 50px;
+    position: absolute;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%, -50%);
+}
+
+.easyArrow,
+.mediumArrow,
+.hardArrow {
+    list-style: none;
+}
+
+.nick {
+    position: fixed;
+    right: 1%;
+    bottom: 1%;
+    font-size: 25px;
+    background-color: grey;
+}
+
+.nick:hover {
+    background-color: whitesmoke;
+}
+
+.instruction img {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.instruction button {
+    font-size: 50px;
+    position: fixed;
+    right: 2%;
+    bottom: 10%;
+    z-index: 1;
+    background-color: green;
+    animation: alert 1s infinite;
+    cursor: pointer;
+}
+
+@keyframes alert {
+    0% {
+        background-color: green;
+    }
+
+    50% {
+        background-color: red;
+    }
+
+    100% {
+        background-color: blue;
+    }
+}

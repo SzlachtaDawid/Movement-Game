@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+        integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+        integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="welcome">
+        <h1>MOVEMENT TRAINER</h1>
+        <form action="">
+            <p>NICKNAME</p>
+            <input type="text" maxlength="10">
+            <button>Let's GO</button>
+        </form>
+    </div>
+    <div class="instruction">
+        <img src="zdj/przewodnik.png" alt="">
+        <button>CLOSE INSTRUCTION AND PLAY</button>
+    </div>
+    <div class="lvl">
+        <div class="easy">EASY</div>
+        <div class="medium">MEDIUM</div>
+        <div class="hard">HARD</div>
+    </div>
+    <div class="menu">
+        <button class="start">START</button>
+        <p class="hit">HIT <i>0</i></p>
+        <p class="miss">MISS <i>0</i></p>
+        <p class="time">TIME: </p>
+    </div>
+    <div class=arrowEffect></div>
+    <div class="arrow"></div>
+    <div class="container">
+        <div><i data-set="left" class="fas fa-chevron-left"></i></div>
+        <div><i data-set="up" class="fas fa-chevron-up"></i></div>
+        <div><i data-set="right" class="fas fa-chevron-right"></i></div>
+    </div>
+    <div class="ranking"> <i class="fas fa-trophy"></i>RANKING<i class="fas fa-trophy"></i></div>
+    <div class="theend">
+        <p class="score">SCORE</p>
+        <button class="close">ZAMKNIJ</button>
+    </div>
+    <button class="nick">CHANGE NICKNAME</button>
+    <div class="rankingArrow">
+        <h1>RANKING</h1>
+        <div class="flex">
+            <ul class="easyArrow">
+                <p>EASY</p>
+                <div>
+
+                </div>
+            </ul>
+            <ul class="mediumArrow">
+                <p>MEDIUM</p>
+                <div>
+
+                </div>
+            </ul>
+            <ul class="hardArrow">
+                <p>HARD</p>
+                <div>
+
+                </div>
+            </ul>
+        </div>
+        <button>ZAMKNIJ</button>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
