@@ -20,7 +20,10 @@ const ulMedium = document.querySelector('.mediumArrow div')
 const ulHard = document.querySelector('.hardArrow div')
 let timeStart = 10
 let active = false
+let active2 = true
 let keyflag = false
+let keyactive = false
+let checkPush = false
 let code = 0
 let hits = 0
 let misses = 0
@@ -101,9 +104,11 @@ rankingClose.addEventListener('click', () => {
 })
 
 rankingOpen.addEventListener('click', () => {
-    document.querySelector('.rankingArrow').style.display = 'block'
-    saveList()
-    renderList()
+    if (keyactive === false && active2) {
+        document.querySelector('.rankingArrow').style.display = 'block'
+        saveList()
+        renderList()
+    }
 })
 
 // WYBIERANIE POZIOMU TRUDNOŚCI
@@ -112,31 +117,38 @@ const medium = document.querySelector('.medium')
 const hard = document.querySelector('.hard')
 
 easy.addEventListener('click', function () {
-    timeStart = 10
-    arrow1 = 700
-    arrow2 = 900
-    lvl = 'easy'
-    active = true
+    if (active2) {
+        timeStart = 10
+        arrow1 = 700
+        arrow2 = 900
+        lvl = 'easy'
+        active = true
+    }
 })
 medium.addEventListener('click', function () {
-    timeStart = 10
-    arrow1 = 500
-    arrow2 = 700
-    lvl = 'medium'
-    active = true
+    if (active2) {
+        timeStart = 10
+        arrow1 = 500
+        arrow2 = 700
+        lvl = 'medium'
+        active = true
+    }
 })
 hard.addEventListener('click', function () {
-    timeStart = 10
-    arrow1 = 350
-    arrow2 = 450
-    lvl = 'hard'
-    active = true
+    if (active2) {
+        timeStart = 10
+        arrow1 = 350
+        arrow2 = 450
+        lvl = 'hard'
+        active = true
+    }
 })
 
 
 // SPRAWDZENIE ORAZ DODANIE EFEKTU TRAFIENIA LUB PUDŁA
 const check = function (e) {
-    if (code === e.keyCode && active && timeStart >= -1) {
+    checkPush = false
+    if (code === e.keyCode && keyactive && timeStart >= -1) {
         hit.textContent = ++hits
         hit.style.color = 'rgb(51, 255, 0)'
         if (e.keyCode === 37) {
@@ -148,7 +160,7 @@ const check = function (e) {
         }
         container.style.boxShadow = '0px 10px 13px -7px #000000, 0px 0px 50px 50px rgba(11,255,0,0.5)'
         active = false
-    } else if (active && timeStart >= -1) {
+    } else if (keyactive && timeStart >= -1) {
         miss.textContent = ++misses
         miss.style.color = 'red'
         if (e.keyCode === 37) {
@@ -161,8 +173,9 @@ const check = function (e) {
         active = false
         container.style.boxShadow = '0px 10px 13px -7px #000000, 0px 0px 50px 50px rgba(255,0,0,0.5)'
     }
-    score = hits - misses
 }
+// score = hits - misses
+
 
 // usuwanie efektu po nacisnieciu
 const keyU = (e) => {
@@ -185,6 +198,8 @@ window.addEventListener('keyup', keyU)
 // ROZPOCZĘCIE GRY PO KLIKNIECIU START
 btnStart.addEventListener('click', function () {
     if (active) {
+        active2 = false
+        keyactive = true
         const timer = setInterval(function () {
             time.textContent = 'TIME: ' + timeStart
             if (timeStart === -1) {
@@ -196,6 +211,8 @@ btnStart.addEventListener('click', function () {
             const close = document.querySelector('.close')
             // TWORZENIE OBJEKTU Z NICKIEM I WYNIKIEM GDZIE NASTEPNIE JEST PUSHOWANY DO TABLICY
             if (timeStart === -1) {
+                container.style.boxShadow = 'none'
+                score = hits - misses
                 object1 = {
                     nickplayer,
                     score,
@@ -217,6 +234,8 @@ btnStart.addEventListener('click', function () {
                     time.textContent = 'TIME: ' + timeStart
                     miss.style.color = 'black'
                     hit.style.color = 'black'
+                    active = true
+                    active2 = true
                 })
             }
             timeStart--
@@ -248,6 +267,7 @@ btnStart.addEventListener('click', function () {
             }
             active = true
             keyflag = true
+            checkPush = true
             // sprawdzenie wylosowana strzałka jest zgodna z klawiszem który został nacisniety
             window.addEventListener('keydown', check)
             // usuwanie strzalki 
@@ -255,11 +275,18 @@ btnStart.addEventListener('click', function () {
                 if (keyflag) {
                     arrow.removeChild(addI)
                 }
+                if (checkPush) {
+                    miss.textContent = ++misses
+                    miss.style.color = 'red'
+                    checkPush = false
+                    container.style.boxShadow = '0px 10px 13px -7px #000000, 0px 0px 50px 50px rgba(255,0,0,0.5)'
+                }
             }, arrow1)
+            container.style.boxShadow = 'none'
             if (timeStart === 0) {
                 clearInterval(game)
+                keyactive = false
             }
-            // window.addEventListener('keydown', check)
         }, arrow2)
     }
 })
@@ -267,7 +294,9 @@ btnStart.addEventListener('click', function () {
 // ZMIANA NICKU
 
 changeNick.addEventListener('click', () => {
-    document.querySelector('.welcome').style.display = 'block'
+    if (keyactive === false && active2) {
+        document.querySelector('.welcome').style.display = 'block'
+    }
 })
 
 // ZAMYKANANIE SAMOUCZKA 
