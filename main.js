@@ -18,6 +18,7 @@ const rankingHard = []
 const ulEasy = document.querySelector('.easyArrow div')
 const ulMedium = document.querySelector('.mediumArrow div')
 const ulHard = document.querySelector('.hardArrow div')
+let LetsPlayActive = true
 let timeStart = 10
 let active = false
 let active2 = true
@@ -148,7 +149,7 @@ hard.addEventListener('click', function () {
 // SPRAWDZENIE ORAZ DODANIE EFEKTU TRAFIENIA LUB PUDŁA
 const check = function (e) {
     checkPush = false
-    if (code === e.keyCode && keyactive && timeStart >= -1) {
+    if (code === e.keyCode && keyactive && timeStart >= -1 && active) {
         hit.textContent = ++hits
         hit.style.color = 'rgb(51, 255, 0)'
         if (e.keyCode === 37) {
@@ -160,7 +161,7 @@ const check = function (e) {
         }
         container.style.boxShadow = '0px 10px 13px -7px #000000, 0px 0px 50px 50px rgba(11,255,0,0.5)'
         active = false
-    } else if (keyactive && timeStart >= -1) {
+    } else if (keyactive && timeStart >= -1 && active) {
         miss.textContent = ++misses
         miss.style.color = 'red'
         if (e.keyCode === 37) {
@@ -197,97 +198,102 @@ window.addEventListener('keyup', keyU)
 
 // ROZPOCZĘCIE GRY PO KLIKNIECIU START
 btnStart.addEventListener('click', function () {
-    if (active) {
-        active2 = false
-        keyactive = true
-        const timer = setInterval(function () {
-            time.textContent = 'TIME: ' + timeStart
-            if (timeStart === -1) {
-                clearInterval(timer)
-            }
-            // GDY STOPER POKAŻE 0 WYSWIETLA SIE TABLICA Z WYNIKIEM ORAZ PRZYCISK ZAMKNIJ
-            const scoreGame = document.querySelector('.score')
-            const theEnd = document.querySelector('.theend')
-            const close = document.querySelector('.close')
-            // TWORZENIE OBJEKTU Z NICKIEM I WYNIKIEM GDZIE NASTEPNIE JEST PUSHOWANY DO TABLICY
-            if (timeStart === -1) {
+    if (LetsPlayActive) {
+        if (active) {
+            LetsPlayActive = false
+            active2 = false
+            keyactive = true
+            const timer = setInterval(function () {
+                time.textContent = 'TIME: ' + timeStart
+                if (timeStart === -1) {
+                    clearInterval(timer)
+                }
+                // GDY STOPER POKAŻE 0 WYSWIETLA SIE TABLICA Z WYNIKIEM ORAZ PRZYCISK ZAMKNIJ
+                const scoreGame = document.querySelector('.score')
+                const theEnd = document.querySelector('.theend')
+                const close = document.querySelector('.close')
+                // TWORZENIE OBJEKTU Z NICKIEM I WYNIKIEM GDZIE NASTEPNIE JEST PUSHOWANY DO TABLICY
+                if (timeStart === -1) {
+                    container.style.boxShadow = 'none'
+                    score = hits - misses
+                    object1 = {
+                        nickplayer,
+                        score,
+                        lvl
+                    }
+                    rankingNick.push(object1)
+                    rankingNick.sort((player1, player2) => player2.score - player1.score)
+                    theEnd.style.display = 'block'
+                    scoreGame.textContent = 'SCORE   ' + score
+                    // nasluchiwanie na przyck zamknij, po klikniecu wszystko sie resetuje
+                    close.addEventListener('click', function () {
+                        theEnd.style.display = 'none'
+                        hits = 0
+                        misses = 0
+                        hit.textContent = 0
+                        miss.textContent = 0
+                        score = 0
+                        timeStart = 10
+                        time.textContent = 'TIME: ' + timeStart
+                        miss.style.color = 'black'
+                        hit.style.color = 'black'
+                        active = true
+                        active2 = true
+                        LetsPlayActive = true
+                    })
+                }
+                timeStart--
+            }, 1000)
+        }
+        if (active) {
+            const game = setInterval(function () {
+                // dodawanie  strzałki a pozniej jest jej losowanie i nadanie odpowiedniej klasy w IF poniżej
+                const arrow = document.querySelector('.arrow')
+                const addI = document.createElement('i')
+                addI.style.fontSize = '120px'
+                arrow.appendChild(addI)
+                // wyswietlanie co zostalo wylosowane
+                if (timeStart >= 0) {
+                    const keynumber = Math.floor(Math.random() * 3)
+                    checkPush = true
+                    switch (keynumber) {
+                        case 0:
+                            code = 37
+                            addI.classList.add('fa-chevron-left', 'fas')
+                            break;
+                        case 1:
+                            code = 38
+                            addI.classList.add('fa-chevron-up', 'fas')
+                            break;
+                        case 2:
+                            code = 39
+                            addI.classList.add('fa-chevron-right', 'fas')
+                            break;
+                    }
+                }
+                active = true
+                keyflag = true
+                // sprawdzenie wylosowana strzałka jest zgodna z klawiszem który został nacisniety
+                window.addEventListener('keydown', check)
+                // usuwanie strzalki 
+                const deleteI = setTimeout(function () {
+                    if (checkPush) {
+                        miss.textContent = ++misses
+                        miss.style.color = 'red'
+                        checkPush = false
+                        container.style.boxShadow = '0px 10px 13px -7px #000000, 0px 0px 50px 50px rgba(255,0,0,0.5)'
+                    }
+                    if (keyflag) {
+                        arrow.removeChild(addI)
+                    }
+                }, arrow1)
                 container.style.boxShadow = 'none'
-                score = hits - misses
-                object1 = {
-                    nickplayer,
-                    score,
-                    lvl
+                if (timeStart === -1) {
+                    clearInterval(game)
+                    keyactive = false
                 }
-                rankingNick.push(object1)
-                rankingNick.sort((player1, player2) => player2.score - player1.score)
-                theEnd.style.display = 'block'
-                scoreGame.textContent = 'SCORE   ' + score
-                // nasluchiwanie na przyck zamknij, po klikniecu wszystko sie resetuje
-                close.addEventListener('click', function () {
-                    theEnd.style.display = 'none'
-                    hits = 0
-                    misses = 0
-                    hit.textContent = 0
-                    miss.textContent = 0
-                    score = 0
-                    timeStart = 10
-                    time.textContent = 'TIME: ' + timeStart
-                    miss.style.color = 'black'
-                    hit.style.color = 'black'
-                    active = true
-                    active2 = true
-                })
-            }
-            timeStart--
-        }, 1000)
-    }
-    if (active) {
-        const game = setInterval(function () {
-            // losowanie
-            const keynumber = Math.floor(Math.random() * 3)
-            // dowanie wylosowanej strzałki 
-            const arrow = document.querySelector('.arrow')
-            const addI = document.createElement('i')
-            addI.style.fontSize = '120px'
-            arrow.appendChild(addI)
-            // wyswietlanie co zostalo wylosowane
-            switch (keynumber) {
-                case 0:
-                    code = 37
-                    addI.classList.add('fa-chevron-left', 'fas')
-                    break;
-                case 1:
-                    code = 38
-                    addI.classList.add('fa-chevron-up', 'fas')
-                    break;
-                case 2:
-                    code = 39
-                    addI.classList.add('fa-chevron-right', 'fas')
-                    break;
-            }
-            active = true
-            keyflag = true
-            checkPush = true
-            // sprawdzenie wylosowana strzałka jest zgodna z klawiszem który został nacisniety
-            window.addEventListener('keydown', check)
-            // usuwanie strzalki 
-            const deleteI = setTimeout(function () {
-                if (keyflag) {
-                    arrow.removeChild(addI)
-                }
-                if (checkPush) {
-                    miss.textContent = ++misses
-                    miss.style.color = 'red'
-                    checkPush = false
-                    container.style.boxShadow = '0px 10px 13px -7px #000000, 0px 0px 50px 50px rgba(255,0,0,0.5)'
-                }
-            }, arrow1)
-            container.style.boxShadow = 'none'
-            if (timeStart === 0) {
-                clearInterval(game)
-                keyactive = false
-            }
-        }, arrow2)
+            }, arrow2)
+        }
     }
 })
 
